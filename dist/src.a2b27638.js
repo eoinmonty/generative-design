@@ -83945,18 +83945,24 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var Sketch = function Sketch(p) {
+  var stepX, stepY;
+
   p.setup = function () {
-    p.createCanvas(720, 720);
-    p.noCursor();
-    p.colorMode(p.HSB, 360, 100, 100);
-    p.rectMode(p.CENTER);
+    p.createCanvas(800, 400);
     p.noStroke();
+    p.colorMode(p.HSB, p.width, p.height, 100);
   };
 
   p.draw = function () {
-    p.background(p.mouseY / 2, p.mouseY / 2, p.mouseY / 2);
-    p.fill(360 - p.mouseY / 2, 360 - p.mouseY / 2, 360 - p.mouseY / 2);
-    p.rect(360, 360, p.mouseX + 1, p.mouseX + 1);
+    stepX = p.mouseX + 2;
+    stepY = p.mouseY + 2;
+
+    for (var gridY = 0; gridY < p.height; gridY += stepY) {
+      for (var gridX = 0; gridX < p.width; gridX += stepX) {
+        p.fill(gridX, p.height - gridY, 100);
+        p.rect(gridX, gridY, stepX, stepY);
+      }
+    }
   };
 };
 
@@ -84006,7 +84012,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49520" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50391" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
