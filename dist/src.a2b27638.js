@@ -83954,8 +83954,8 @@ var Sketch = function Sketch(p) {
   };
 
   p.draw = function () {
-    p.background(100, p.mouseY / 2, 100);
-    p.fill(100, 360 - p.mouseY / 2, 100);
+    p.background(p.mouseY / 2, 100, 100);
+    p.fill(360 - p.mouseY / 2, 100, 100);
     p.rect(360, 360, p.mouseX + 1, p.mouseX + 1);
   };
 };
