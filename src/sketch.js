@@ -5,14 +5,14 @@ const Sketch = (p) => {
     p.setup = () => {
       p.createCanvas(800, 400);
       p.noStroke();
-      p.colorMode(p.HSB, p.width, p.height, 100);
+      p.colorMode(p.RBG, p.width, p.height, 100);
     };
     p.draw = () => {
       stepX = p.mouseX + 10;
       stepY = p.mouseY + 10;
 
       const drawGrid = (gridX, gridY, stepX, stepY) => {
-          p.fill(gridX, p.height - gridY, 100);
+          p.fill(p.width - gridX, p.height - gridY, 100);
           p.rect(gridX, gridY, stepX, stepY);
       };
 
