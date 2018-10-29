@@ -83945,7 +83945,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var Sketch = function Sketch(p) {
-  var stepX, stepY;
+  var stepX,
+      stepY = 0;
 
   p.setup = function () {
     p.createCanvas(800, 400);
@@ -83954,15 +83955,29 @@ var Sketch = function Sketch(p) {
   };
 
   p.draw = function () {
-    stepX = p.mouseX + 2;
-    stepY = p.mouseY + 2;
+    stepX = p.mouseX + 10;
+    stepY = p.mouseY + 10;
 
-    for (var gridY = 0; gridY < p.height; gridY += stepY) {
-      for (var gridX = 0; gridX < p.width; gridX += stepX) {
-        p.fill(gridX, p.height - gridY, 100);
-        p.rect(gridX, gridY, stepX, stepY);
+    var drawGrid = function drawGrid(gridX, gridY, stepX, stepY) {
+      p.fill(gridX, p.height - gridY, 100);
+      p.rect(gridX, gridY, stepX, stepY);
+    };
+
+    var drawGridX = function drawGridX(gridX, gridY, stepX, stepY) {
+      drawGrid(gridX, gridY, stepX, stepY);
+
+      if (gridY > p.height) {
+        return;
       }
-    }
+
+      if (gridX > p.width) {
+        return drawGridX(0, gridY + stepY, stepX, stepY);
+      }
+
+      return drawGridX(gridX + stepX, gridY, stepX, stepY);
+    };
+
+    drawGridX(0, 0, stepX, stepY);
   };
 };
 
@@ -84012,7 +84027,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50391" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64493" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
