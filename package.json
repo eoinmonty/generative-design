@@ -20,13 +20,14 @@
   "homepage": "https://github.com/kidCubi/p5js-start#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "css-mqpacker": "^6.0.2",
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "node-sass": "^4.7.2",
-    "parcel-bundler": "^1.10.3"
+    "parcel-bundler": "^1.10.3",
+    "sass": "^1.14.3"
   },
   "dependencies": {
     "p5": "^0.7.2"

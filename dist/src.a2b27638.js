@@ -83945,39 +83945,63 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var Sketch = function Sketch(p) {
-  var stepX,
-      stepY = 0;
+  var segmentCount = 360;
+  var radius = 300;
 
   p.setup = function () {
-    p.createCanvas(800, 400);
+    p.createCanvas(800, 800);
     p.noStroke();
-    p.colorMode(p.RBG, p.width, p.height, 100);
+    p.colorMode(p.HSB, 360, p.width, p.height);
   };
 
   p.draw = function () {
-    stepX = p.mouseX + 10;
-    stepY = p.mouseY + 10;
+    p.background(360, 0, p.height);
+    var angleStep = 360 / segmentCount;
 
-    var drawGrid = function drawGrid(gridX, gridY, stepX, stepY) {
-      p.fill(p.width - gridX, p.height - gridY, 100);
-      p.rect(gridX, gridY, stepX, stepY);
-    };
+    var drawGrid = function drawGrid(gridX, gridY, stepX, stepY) {};
 
-    var drawGridX = function drawGridX(gridX, gridY, stepX, stepY) {
-      drawGrid(gridX, gridY, stepX, stepY);
-
-      if (gridY > p.height) {
+    var drawShape = function drawShape(angle) {
+      if (angle > 360) {
         return;
       }
 
-      if (gridX > p.width) {
-        return drawGridX(0, gridY + stepY, stepX, stepY);
-      }
-
-      return drawGridX(gridX + stepX, gridY, stepX, stepY);
+      var vx = p.width / 2 + p.cos(p.radians(angle)) * radius;
+      var vy = p.height / 2 + p.sin(p.radians(angle)) * radius;
+      p.vertex(vx, vy);
+      p.fill(angle, p.mouseX, p.mouseY);
+      drawShape(angle + angleStep);
     };
 
-    drawGridX(0, 0, stepX, stepY);
+    p.beginShape(p.TRIANGLE_FAN);
+    p.vertex(p.width / 2, p.height / 2);
+    drawShape(0);
+    p.endShape();
+  };
+
+  p.keyPressed = function () {
+    if (p.key == 's' || p.key == 'S') saveCanvas(gd.timestamp(), 'png');
+
+    switch (p.key) {
+      case '1':
+        segmentCount = 360;
+        break;
+
+      case '2':
+        segmentCount = 45;
+        break;
+
+      case '3':
+        segmentCount = 24;
+        break;
+
+      case '4':
+        segmentCount = 12;
+        break;
+
+      case '5':
+        segmentCount = 6;
+        break;
+    }
   };
 };
 
@@ -84027,7 +84051,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62649" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57623" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
