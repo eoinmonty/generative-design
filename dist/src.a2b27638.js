@@ -83945,63 +83945,69 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var Sketch = function Sketch(p) {
-  var segmentCount = 360;
-  var radius = 300;
+  var randomColor = function randomColor() {
+    return {
+      left: p.color(p.random(0, 60), p.random(0, 100), 100),
+      right: p.color(p.random(160, 190), 100, p.random(0, 100))
+    };
+  };
+
+  var randomColors = function randomColors(tileCountY) {
+    var colors = Array(tileCountY).fill(0);
+    var randColorsList = colors.map(randomColor);
+    return randColorsList;
+  };
+
+  var colors = randomColors(100);
+  var interpolateShortest = false;
 
   p.setup = function () {
     p.createCanvas(800, 800);
     p.noStroke();
-    p.colorMode(p.HSB, 360, p.width, p.height);
   };
 
   p.draw = function () {
-    p.background(360, 0, p.height);
-    var angleStep = 360 / segmentCount;
+    !interpolateShortest ? p.colorMode(p.HSB) : p.colorMode(p.RGB);
+    var tileCountX = p.int(p.map(p.mouseX, 0, p.width, 2, 100));
+    var tileCountY = p.int(p.map(p.mouseY, 0, p.height, 2, 10));
+    var tileWidth = p.width / tileCountX;
+    var tileHeight = p.height / tileCountY;
 
-    var drawGrid = function drawGrid(gridX, gridY, stepX, stepY) {};
+    var drawRow = function drawRow(gridX, gridY, col1, col2) {
+      var amount = p.map(gridX, 0, tileCountX - 1, 0, 1);
+      var interCol = p.lerpColor(col1, col2, amount);
+      p.fill(interCol);
+      var posX = tileWidth * gridX;
+      var posY = tileHeight * gridY;
+      p.rect(posX, posY, tileWidth, tileHeight);
+    };
 
-    var drawShape = function drawShape(angle) {
-      if (angle > 360) {
+    var drawGrid = function drawGrid(gridX, gridY, col1, col2) {
+      drawRow(gridX, gridY, col1, col2);
+
+      if (gridY > tileCountY) {
         return;
       }
 
-      var vx = p.width / 2 + p.cos(p.radians(angle)) * radius;
-      var vy = p.height / 2 + p.sin(p.radians(angle)) * radius;
-      p.vertex(vx, vy);
-      p.fill(angle, p.mouseX, p.mouseY);
-      drawShape(angle + angleStep);
+      if (gridX >= tileCountX) {
+        return drawGrid(0, gridY + 1, colors[gridY + 1].left, colors[gridY + 1].right);
+      }
+
+      return drawGrid(gridX + 1, gridY, col1, col2);
     };
 
-    p.beginShape(p.TRIANGLE_FAN);
-    p.vertex(p.width / 2, p.height / 2);
-    drawShape(0);
-    p.endShape();
+    var col1 = colors[0].left;
+    var col2 = colors[0].right;
+    drawGrid(0, 0, col1, col2);
+  };
+
+  p.mouseReleased = function () {
+    colors = randomColors(100);
   };
 
   p.keyPressed = function () {
-    if (p.key == 's' || p.key == 'S') saveCanvas(gd.timestamp(), 'png');
-
-    switch (p.key) {
-      case '1':
-        segmentCount = 360;
-        break;
-
-      case '2':
-        segmentCount = 45;
-        break;
-
-      case '3':
-        segmentCount = 24;
-        break;
-
-      case '4':
-        segmentCount = 12;
-        break;
-
-      case '5':
-        segmentCount = 6;
-        break;
-    }
+    if (p.key == '1') interpolateShortest = true;
+    if (p.key == '2') interpolateShortest = false;
   };
 };
 
