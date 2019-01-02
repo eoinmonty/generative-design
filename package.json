@@ -19,17 +19,22 @@
   },
   "homepage": "https://github.com/kidCubi/p5js-start#readme",
   "devDependencies": {
+    "@material/button": "^0.42.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "css-mqpacker": "^6.0.2",
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.11.0",
     "parcel-bundler": "^1.10.3",
     "sass": "^1.14.3"
   },
   "dependencies": {
-    "p5": "^0.7.2"
+    "grid.js": "^1.0.0",
+    "material-components-web": "^0.42.1",
+    "p5": "^0.7.2",
+    "ramda": "^0.26.1",
+    "save": "^2.3.3"
   }
 }

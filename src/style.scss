@@ -1,7 +1,21 @@
 @import "reset";
+@import "@material/button/mdc-button";  
+@import "@material/drawer/mdc-drawer"; 
+@import "@material/list/mdc-list";
 
 $background: red;
 
 body {
 
 }
+
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 5em;
+}
+
+canvas {
+  margin-top: 5em;
+}
+
