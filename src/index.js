@@ -14,9 +14,35 @@ import Sketch from './sketch';
 import {MDCRipple} from '@material/ripple/index';
 
 const callback = () => {
-  new p5(Sketch);
-  const list = MDCList.attachTo(document.querySelector('.mdc-list')); 
+  const listSelect = document.querySelector('.mdc-list');
+  const list = MDCList.attachTo(listSelect); 
   list.wrapFocus = true;
+
+  let canvas = new p5(Sketch);
+  canvas.remove();
+  
+  const listChildren = Array.from(listSelect.children);
+  listChildren.map((navItem, index) => {
+    if (navItem.nodeName === 'A') {
+      
+      navItem.addEventListener('click', (event) => {
+        const target = event.originalTarget.innerText;
+        canvas.remove();
+        
+        switch (target) {
+          case 'One':
+            canvas.remove();
+            canvas = new p5(Sketch);
+          case 'Two':
+            canvas.remove();
+            canvas = new p5(Sketch);
+          default: 
+            canvas.remove();
+            canvas = new p5(Sketch);
+        }
+      });
+    }
+  });
 }
 
 if (     
