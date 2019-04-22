@@ -11,7 +11,7 @@ if (module.hot) {
 }
 
 import Sketch from './sketch';
-import { default as sketch2 } from "./sketches/Sketch_1_0";
+import { Sketch_1_0_All, Sketch_1_0_Bright } from "./sketches/Sketch_1_0";
 import {MDCRipple} from '@material/ripple/index';
 
 const callback = () => {
@@ -38,7 +38,12 @@ const callback = () => {
           case 'Two':
             console.log('here');
             canvas.remove();
-            canvas = new p5(sketch2);
+            canvas = new p5(Sketch_1_0_All);
+            break;
+          case 'Three':
+            console.log('here');
+            canvas.remove();
+            canvas = new p5(Sketch_1_0_Bright);
             break;
           default: 
             canvas.remove();
