@@ -107049,7 +107049,7 @@ var Sketch = function Sketch(p) {
 
 var _default = Sketch;
 exports.default = _default;
-},{"ramda":"node_modules/ramda/es/index.js","./grid.js":"src/grid.js"}],"src/sketches/p-1-0.js":[function(require,module,exports) {
+},{"ramda":"node_modules/ramda/es/index.js","./grid.js":"src/grid.js"}],"src/sketches/Sketch_1_0.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -107057,9 +107057,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var Sketch = function Sketch(p) {
+var Sketch_1_0 = function Sketch_1_0(p) {
   p.setup = function () {
-    p.createCanvas(720, 720);
+    var canvas = p.createCanvas(720, 720);
+    canvas.parent('layout');
     p.noCursor();
     p.colorMode(p.HSB, 360, 100, 100);
     p.rectMode(p.CENTER);
@@ -107073,8 +107074,7 @@ var Sketch = function Sketch(p) {
   };
 };
 
-var _default = p - 1.0 - all;
-
+var _default = Sketch_1_0;
 exports.default = _default;
 },{}],"node_modules/@material/base/foundation.js":[function(require,module,exports) {
 "use strict";
@@ -108639,7 +108639,7 @@ var _drawer = require("@material/drawer");
 
 var _sketch = _interopRequireDefault(require("./sketch"));
 
-var _p2 = _interopRequireDefault(require("./sketches/p-1-0"));
+var _Sketch_1_ = _interopRequireDefault(require("./sketches/Sketch_1_0"));
 
 var _index = require("@material/ripple/index");
 
@@ -108670,11 +108670,14 @@ var callback = function callback() {
         switch (target) {
           case 'One':
             canvas.remove();
-            canvas = new _p.default(_p2.default);
+            canvas = new _p.default(_sketch.default);
+            break;
 
           case 'Two':
+            console.log('here');
             canvas.remove();
-            canvas = new _p.default(_sketch.default);
+            canvas = new _p.default(_Sketch_1_.default);
+            break;
 
           default:
             canvas.remove();
@@ -108690,7 +108693,7 @@ if (document.readyState === "complete" || document.readyState !== "loading" && !
 } else {
   document.addEventListener("DOMContentLoaded", callback);
 }
-},{"p5":"node_modules/p5/lib/p5.js","@material/list":"node_modules/@material/list/dist/mdc.list.js","@material/drawer":"node_modules/@material/drawer/dist/mdc.drawer.js","./sketch":"src/sketch.js","./sketches/p-1-0":"src/sketches/p-1-0.js","@material/ripple/index":"node_modules/@material/ripple/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"p5":"node_modules/p5/lib/p5.js","@material/list":"node_modules/@material/list/dist/mdc.list.js","@material/drawer":"node_modules/@material/drawer/dist/mdc.drawer.js","./sketch":"src/sketch.js","./sketches/Sketch_1_0":"src/sketches/Sketch_1_0.js","@material/ripple/index":"node_modules/@material/ripple/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -108717,7 +108720,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52106" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58835" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
