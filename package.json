@@ -32,10 +32,15 @@
     "sass": "^1.19.0"
   },
   "dependencies": {
+    "@vaadin/router": "^1.2.0",
     "grid.js": "^1.0.0",
+    "hybrids": "^4.0.0",
     "material-components-web": "^0.42.1",
     "p5": "^0.7.3",
+    "pages": "0.0.16",
     "ramda": "^0.26.1",
-    "save": "^2.3.3"
+    "reset": "^0.1.0",
+    "save": "^2.3.3",
+    "src": "^1.1.2"
   }
 }
