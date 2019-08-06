@@ -10,3 +10,4 @@ export const Color = {
       </button>
     `
 };
+define('app-color', Color);

@@ -2,7 +2,7 @@
   "name": "p5js-start",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "./node_modules/.bin/parcel --no-cache index.html",
     "build": "./node_modules/.bin/parcel build index.html",
@@ -20,27 +20,28 @@
   "homepage": "https://github.com/kidCubi/p5js-start#readme",
   "devDependencies": {
     "@material/button": "^0.42.0",
-    "autoprefixer": "^9.5.1",
+    "autoprefixer": "^9.6.1",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "css-mqpacker": "^6.0.2",
     "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.2",
-    "node-sass": "^4.11.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
     "parcel-bundler": "^1.12.3",
-    "sass": "^1.19.0"
+    "postcss-modules": "^1.4.1",
+    "sass": "^1.22.9",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
   },
   "dependencies": {
-    "@vaadin/router": "^1.2.0",
+    "@vaadin/router": "^1.2.1",
     "grid.js": "^1.0.0",
-    "hybrids": "^4.0.0",
+    "hybrids": "^4.0.2",
     "material-components-web": "^0.42.1",
     "p5": "^0.7.3",
     "pages": "0.0.16",
     "ramda": "^0.26.1",
     "reset": "^0.1.0",
-    "save": "^2.3.3",
+    "save": "^2.4.0",
     "src": "^1.1.2"
   }
 }
