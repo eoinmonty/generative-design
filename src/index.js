@@ -7,7 +7,6 @@ import { Color } from './pages/color.js';
 
 
 const callback = () => {
- 
   const layout = document.getElementById('layout');
   const router = new Router(layout);
   router.setRoutes([
