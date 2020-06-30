@@ -1,6 +1,6 @@
 <script>
 	import {send, receive, slideInBounce, slideDirection } from '../components/transitions.js';
-	import { fade, fly } from 'svelte/transition';
+	import { fade, fly, slide } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import { elasticOut } from 'svelte/easing';
 
@@ -11,14 +11,10 @@
 
 <style>
 	.intro {
-		background-image: none;		
-        background-size: cover;
-		background-repeat: no-repeat;
 		height: 100%;
 		display: grid;
-		grid-template-columns: 32px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 32px;
-		column-gap: 8px;
-		grid-template-rows: 48px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 48px;
+		grid-template-columns: 1em repeat(10, 1fr) 1em;
+		grid-template-rows: 48px repeat(8, 1fr) 48px;
 
 	}
 
@@ -56,11 +52,14 @@
 		z-index: 0;
 	}
 	
-	@media (max-width: 480px) {
+	@media (max-width: 720px) {
 		a {
 			font-size: 3em;
-			margin-bottom: -0.5rem;
-		}
+			margin-bottom: -0.6rem;
+    }
+    .arrow {
+      font-size: 0.6rem;
+    }
 	}
 </style>
 
@@ -75,9 +74,9 @@
 		out:slideInBounce="{{duration: 2000, direction: slideDirection.LEFT}}"
 		class="background-container-top"> 
 	</div>
-	<a  href="contents" >
-		<div>Generative Design Playground</div>
-		<div class="arrow">
+	<a  out:slide in:slide="{{x: 100, delay: 2000}}" href="contents" >
+    <div>Generative Design Playground</div>
+    <div class="arrow">
 			<Arrow scale={5.0} />
 		</div>
 	</a>
