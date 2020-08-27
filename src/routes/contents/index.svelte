@@ -1,12 +1,68 @@
 <script>
 	import { fade, fly, scale, slide } from 'svelte/transition';
 	import {send, receive, slideInBounce, slideDirection } from '../../components/transitions.js';
+  import { onMount, afterUpdate } from 'svelte';
 
 	import { quintOut } from 'svelte/easing';
 	import Arrow from '../../components/Arrow.svelte'
   import P5Square from '../../components/P5Square.svelte'
 
   const loadDelay = 2000;
+  const canvasID = "p5-canvas";
+  let container;
+  let sketchWrapper;
+
+  afterUpdate(() => {
+    console.log("Update Occured");
+    sketchWrapper = (container) => {
+      console.log('container');
+      console.log(container);
+      const sketch = (p) => {
+        console.log("p5 func");
+        let canvasWidth = container.offsetWidth;
+        let canvasHeight = container.offsetHeight;
+
+        p.setup = () => {
+          console.log("p5 setup");
+          canvasWidth = container.offsetWidth;
+          canvasHeight = container.offsetHeight;
+          p.createCanvas(canvasWidth, canvasHeight);
+          p.noCursor();
+          p.colorMode(p.HSB, 360, 100, 100);
+          p.rectMode(p.CENTER);
+          p.noStroke();
+        };
+        p.draw = () => {
+          p.background(p.mouseY / 2, 100 , 100);
+          p.fill(360 - p.mouseY / 2, 100, 100);
+          p.rect(canvasWidth/2, canvasHeight/2, p.mouseX + 1, p.mouseX + 1);
+        };
+        p.windowResized = () => {
+          console.log("p5 window resize");
+          console.log(container);
+          console.log(canvasHeight);
+          console.log(container.offsetHeight);
+          console.log(p.height)
+          console.log(canvasWidth);
+          console.log(container.offsetWidth);
+          console.log(p.width);
+          if(container.offsetWidth !== p.width){
+            console.log("Inside if w");
+            canvasWidth = container.offsetWidth - p.width;
+            p.resizeCanvas(canvasWidth, p.height);
+          }
+          else if(container.offsetHeight !== p.height){
+            console.log("Inside if h");
+            canvasHeight = container.offsetHeight - p.height;
+            p.resizeCanvas(p.width, canvasHeight);
+          }
+        }
+      };
+      return sketch;
+    }
+  })
+
+
 </script>
 
 <style>
@@ -57,27 +113,23 @@
   .p5-container-top-left {
     grid-column: col-start 2 / span 4;
     grid-row: row-start 1 / span 4;
-    background-color: red;
     margin-right: var(--margin-sides);
   }
-  .p5-container-top-right {
+  /*.p5-container-top-right {
     grid-column: col-start 7 / span 4;
     grid-row: row-start 1 / span 4;
-    background-color: yellow;
     margin-left: var(--margin-sides);
   }
   .p5-container-bottom-left {
     grid-column: col-start 2 / span 4;
     grid-row: row-start 6 / span 4;
-    background-color: blue;
     margin-right: var(--margin-sides);
   }
   .p5-container-bottom-right {
     grid-column: col-start 7 / span 4;
     grid-row: row-start 6 / span 4;
-    background-color: purple;
     margin-left: var(--margin-sides);
-  }
+  }*/
 	
   @media (max-width: 768px) {
     .contents {
@@ -86,23 +138,19 @@
     .p5-container-top-left {
       grid-column: col-start 3 / span 8;
       grid-row: row-start 1 / span 4;
-      background-color: red;
     }
-    .p5-container-top-right {
+    /*.p5-container-top-right {
       grid-column: col-start 3 / span 8;
       grid-row: row-start 6 / span 4;
-      background-color: yellow;
     }
     .p5-container-bottom-left {
       grid-column: col-start 3 / span 8;
       grid-row: row-start 11 / span 4;
-      background-color: blue;
     }
     .p5-container-bottom-right {
       grid-column: col-start 3 / span 8;
       grid-row: row-start 16 / span 4;
-      background-color: purple;
-    }
+    }*/
 	}
 </style>
 
@@ -127,18 +175,18 @@
 			<Arrow  scale={5.0} rotation={"180deg"} />
 		</div>
 	</a>
-  <div in:scale="{{delay: loadDelay*2 }}" class="p5-container-top-left">
-    <P5Square />
+  <div class="p5-container-top-left" bind:this={container}>
+    <P5Square id={`${canvasID}1`} container={container} sketch={sketchWrapper} />
   </div>
-  <div in:scale="{{delay: loadDelay*2 }}" class="p5-container-top-right">
-    <P5Square />
+  <!--div class="p5-container-top-right">
+    <P5Square id={`${canvasID}2`} sketch={sketchWrapper} />
   </div>
-  <div in:scale="{{delay: loadDelay*2 }}" class="p5-container-bottom-left">
-    <P5Square />
+  <div class="p5-container-bottom-left">
+    <P5Square id={`${canvasID}3`} sketch={sketchWrapper} />
   </div>
-  <div in:scale="{{delay: loadDelay*2 }}" class="p5-container-bottom-right">
-    <P5Square />
-  </div>
+  <div  class="p5-container-bottom-right">
+    <P5Square id={`${canvasID}4`} sketch={sketchWrapper} />
+    </div-->
 </div>
 
 
