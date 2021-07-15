@@ -11,7 +11,10 @@ const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
-const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) || onwarn(warning);
+const onwarn = (warning, onwarn) =>
+	(warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
+	(warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
+	onwarn(warning);
 
 export default {
 	client: {
@@ -19,13 +22,16 @@ export default {
 		output: config.client.output(),
 		plugins: [
 			replace({
+        'preventAssignment': true,
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			svelte({
-				dev,
-				hydratable: true,
-				emitCss: true
+        emitCss: true,
+        compilerOptions: {
+          hydratable: true,
+          customElement: false
+        }
 			}),
 			resolve({
 				browser: true,
@@ -54,7 +60,7 @@ export default {
 				module: true
 			})
 		],
-
+    preserveEntrySignatures: 'strict',
 		onwarn,
 	},
 
@@ -62,13 +68,15 @@ export default {
 		input: config.server.input(),
 		output: config.server.output(),
 		plugins: [
-			replace({
+      replace({
+        'preventAssignment': true,
 				'process.browser': false,
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			svelte({
-				generate: 'ssr',
-				dev
+        compilerOptions: {
+				  generate: 'ssr',
+        }
 			}),
 			resolve({
 				dedupe: ['svelte']
@@ -78,7 +86,7 @@ export default {
 		external: Object.keys(pkg.dependencies).concat(
 			require('module').builtinModules || Object.keys(process.binding('natives'))
 		),
-
+    preserveEntrySignatures: 'strict',
 		onwarn,
 	},
 
@@ -88,13 +96,14 @@ export default {
 		plugins: [
 			resolve(),
 			replace({
+        'preventAssignment': true,
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			commonjs(),
 			!dev && terser()
 		],
-
+    preserveEntrySignatures: 'strict',
 		onwarn,
 	}
 };

@@ -36,12 +36,10 @@ const callback = () => {
             canvas = new p5(Sketch);
             break;
           case 'Two':
-            console.log('here');
             canvas.remove();
             canvas = new p5(Sketch_1_0_All);
             break;
           case 'Three':
-            console.log('here');
             canvas.remove();
             canvas = new p5(Sketch_1_0_Bright);
             break;
